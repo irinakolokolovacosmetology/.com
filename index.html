@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="uk-UA" class="no-zoom">
+<head>
+  <meta charset="UTF-8" />
+  <title>Irina Kolokolova Cosmetology — Професійний догляд</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#88bbb5" />
+  <meta name="description" content="Преміальний професійний догляд і косметика з Італії. Індивідуальні програми, естетичні процедури та домашні ритуали краси." />
+
+  <link rel="icon" type="image/png" href="assets/54.png"/>
+
+  <style>
+    :root{ --primary:#88bbb5; --primary-700:#6aa39d; --text:#000; --muted:#5f5f5f; --bg:#fff; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.07); }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--muted);font-family:"Source Sans Pro",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden;-webkit-text-size-adjust:100%;touch-action:pan-y}
+    a{color:var(--primary);text-decoration:none} a:hover{color:var(--primary-700)}
+    img{display:block;max-width:100%;height:auto}
+    .container{max-width:1250px;margin:0 auto;padding:0 16px}
+
+    .header{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid #eee;box-shadow:0 2px 10px rgba(0,0,0,.03)}
+    .header-top{padding:10px 0 6px}
+    .logo-wrap{display:flex;justify-content:center}
+    .logo-wrap img{height:56px;width:auto}
+    .header-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 10px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 12px;border-radius:999px;border:1px solid var(--primary);background:var(--primary);color:#fff;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.74rem;box-shadow:var(--shadow);transition:.15s}
+    .btn:hover{transform:translateY(-1px);background:var(--primary-700);border-color:var(--primary-700)}
+    .btn .icon{width:17px;height:17px}
+    .btn-ghost{background:transparent;color:var(--primary)} .btn-ghost:hover{background:var(--primary);color:#fff}
+    @media (max-width:390px){.btn{font-size:.7rem;height:36px;padding:0 10px}.btn .icon{width:16px;height:16px}}
+
+    .hero{position:relative}
+    .slide{position:relative;min-height:320px;display:flex;align-items:flex-end;overflow:hidden}
+    .slide-media{position:absolute;inset:0;z-index:0}
+    .slide-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.42));z-index:0}
+    .slide-content{position:relative;z-index:1;width:100%}
+    .hero-text{color:#fff;text-align:center;padding:22px 14px 20px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+    .hero-text h1{margin:0 0 8px;font-size:clamp(22px,5vw,30px);font-weight:800}
+    .hero-text p{margin:0 auto;max-width:820px;color:#f5f5f5}
+    .hero-nav{position:absolute;top:50%;left:0;right:0;display:flex;justify-content:space-between;transform:translateY(-50%);padding:0 6px;pointer-events:none}
+    .hero-btn{pointer-events:auto;width:40px;height:40px;border-radius:999px;border:1px solid #fff;background:rgba(255,255,255,.2);backdrop-filter:blur(2px);display:grid;place-items:center;color:#fff}
+    .hero-dots{position:absolute;left:0;right:0;bottom:8px;display:flex;gap:6px;justify-content:center}
+    .hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)} .hero-dot.active{background:#fff}
+
+    .products{padding:16px 0 6px}
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(4,1fr)}
+    @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:420px){.grid{grid-template-columns:1fr}}
+    .product{border:1px solid #eee;border-radius:18px;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+    .product .img-wrap{aspect-ratio:5/3.7;background:#f6f6f6}
+    .product .img-wrap img{width:100%;height:100%;object-fit:cover}
+    .product .info{padding:14px 14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .product .title{margin:0;color:#000;font-size:1.02rem;line-height:1.25;text-align:center;min-height:2.6em}
+    .product .price{color:#000;font-weight:700;text-align:center}
+    .order-cta{margin-top:auto}
+    .order-cta .button{width:100%;background:var(--primary);border:1px solid var(--primary);color:#fff;border-radius:999px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:700;letter-spacing:.04em}
+    .order-cta .button:hover{background:var(--primary-700);border-color:var(--primary-700)}
+
+    .footer{background:var(--primary);color:#000;padding:18px 0 14px}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:10px}
+    .footer .socials{display:flex;gap:10px}
+    .icon-btn{width:44px;height:44px;border-radius:999px;background:#fff;border:1px solid #fff;color:var(--text);display:grid;place-items:center;transition:.2s}
+    .icon-btn:hover{transform:translateY(-1px)}
+    .icon{width:20px;height:20px}
+    .footer a{color:#000}
+    .footer p{margin:4px 0 0}
+
+    /* Доп. стили: пагинация, разделители, спецкарточка, консультация */
+    .products-head{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:8px 0 6px}
+    .pager{display:flex;gap:6px;align-items:center}
+    .pager-btn{width:32px;height:32px;border-radius:999px;border:1px solid #ddd;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);cursor:pointer;transition:.15s}
+    .pager-btn[disabled]{opacity:.5;cursor:not-allowed}
+    .pager-btn:hover:not([disabled]){transform:translateY(-1px);border-color:#ccc}
+    .pager-ind{font-size:.9rem;color:#333;min-width:46px;text-align:center}
+
+    .section-sep{position:relative;margin:18px 0}
+    .section-sep::before{content:"";display:block;height:1px;background:linear-gradient(90deg,transparent,#e6e6e6,transparent)}
+
+    .special-wrap{display:grid;gap:18px;grid-template-columns:1fr}
+    .special-card{border:1px solid #eee;border-radius:18px;background:#fff;box-shadow:var(--shadow);overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    @media (max-width:800px){.special-card{grid-template-columns:1fr}}
+    .special-media{background:#f6f6f6}
+    .special-body{padding:16px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+    .special-title{margin:0;color:#000;font-size:1.2rem;font-weight:800}
+    .special-text{margin:0}
+    .special-cta{display:flex;gap:10px;flex-wrap:wrap}
+
+    .consult{border:1px solid #eee;border-radius:18px;background:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:1.2fr .8fr;overflow:hidden}
+    @media (max-width:900px){.consult{grid-template-columns:1fr}}
+    .consult-body{padding:20px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+    .consult h3{margin:0;color:#000;font-size:1.3rem;font-weight:800}
+    .consult p{margin:0}
+    .consult .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .consult .media{background:#f6f6f6}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-top">
+      <div class="logo-wrap">
+        <img src="https://images.weserv.nl/?url=i.ibb.co/9X7PvSy/2025-10-30-160911.png" alt="Irina Kolokolova Cosmetology" loading="eager" decoding="async" fetchpriority="high">
+      </div>
+      <div class="header-actions">
+        <a class="btn" href="tel:+380960120122" aria-label="Подзвонити">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.78.54 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.06a2 2 0 0 1 2.11-.45c.85.24 1.73.42 2.63.54A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          +380&nbsp;96&nbsp;012&nbsp;01&nbsp;22
+        </a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/irina.kolokolova_cosmetology/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+          </svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-nav">
+      <button class="hero-btn" id="prev" aria-label="Попередній">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="hero-btn" id="next" aria-label="Наступний">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="hero-dots" id="dots"></div>
+  </section>
+
+  <section class="products">
+    <div class="container">
+      <!-- Сетка товаров -->
+      <div id="products-grid" class="grid"></div>
+
+      <!-- Пагинация: перенесена под сетку, над подарунковими наборами -->
+      <div class="products-head" id="pager-under-grid">
+        <div class="pager">
+          <button class="pager-btn" id="prod-prev" aria-label="Попередня сторінка">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <span class="pager-ind" id="prod-ind">1 / 1</span>
+          <button class="pager-btn" id="prod-next" aria-label="Наступна сторінка">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Блок консультации -->
+      <div class="consult" style="margin-top:8px">
+        <div class="consult-body">
+          <h3>Персональна консультація</h3>
+          <p>Підберу індивідуальний догляд і відповім на всі запитання щодо процедур та косметики.</p>
+          <div class="actions">
+            <a class="btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Написати в Telegram</a>
+          </div>
+        </div>
+        <div class="media">
+          <img src="assets/60.png" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <!-- Разделительная линия между консультацією та подарунковими наборами -->
+      <div class="section-sep"></div>
+
+      <!-- Спец-блок: Подарункові набори (отдельно от пагинации) -->
+      <div class="special-wrap" id="gift-wrap"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="socials">
+        <a class="icon-btn" href="tel:+380960120122" aria-label="Подзвонити"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.78.54 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.06a2 2 0 0 1 2.11-.45c.85.24 1.73.42 2.63.54A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+        <a class="icon-btn" href="https://www.instagram.com/irina.kolokolova_cosmetology/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+        <a class="icon-btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg></a>
+      </div>
+      <p>© 2025 Irina Kolokolova Cosmetology</p>
+    </div>
+  </footer>
+
+  <script>
+    // Ограничиваем внешние переходы (оставляем только контакты/соцсети)
+    document.addEventListener('click', (e)=>{
+      const a=e.target.closest('a'); if(!a) return;
+      const href=(a.getAttribute('href')||'').trim();
+      const ok = href.startsWith('tel:') ||
+        href.startsWith('https://www.instagram.com/irina.kolokolova_cosmetology/') ||
+        href.startsWith('https://t.me/cosmetologg_iryna') || href==='#' || href==='';
+      if(!ok){ e.preventDefault(); e.stopPropagation(); }
+    }, {capture:true});
+
+    // Слайды — ЛОКАЛЬНЫЕ файлы
+    const slides = [
+      { img: 'assets/54.png', title: 'Преміальний професійний догляд і косметика з Італії', text: 'Дбайливо підбираю процедури та домашні засоби для сяйва шкіри у будь-якому віці.' },
+      { img: 'assets/55.png', title: 'Індивідуальні програми краси', text: 'Підлаштовую рекомендації під ваші цілі та ритм життя — комфортно й результативно.' },
+      { img: 'assets/56.png', title: 'Естетичні процедури та домашній догляд', text: 'Поєднання кабінетних технік і щоденних ритуалів дарує стабільний тонус і сяйво.' },
+      { img: 'assets/57.png', title: 'Косметологічні набори для дому', text: 'Готові рішення для різних типів шкіри — просто, економно та ефективно.' },
+      { img: 'assets/58.png', title: 'Ніжне очищення — основа краси', text: 'М’які формули без агресії підтримують бар’єр шкіри та готують її до активів.' },
+      { img: 'assets/59.png', title: 'Сяйво щодня', text: 'Збалансовані засоби з фітоекстрактами та ефірними оліями для щоденного догляду.' },
+    ];
+
+    const hero = document.getElementById('hero');
+    const dotsWrap = document.getElementById('dots');
+
+    function renderSlides(){
+      hero.querySelectorAll('.slide').forEach(n=>n.remove());
+      dotsWrap.innerHTML='';
+      slides.forEach((s, i)=>{
+        const el = document.createElement('div');
+        el.className='slide';
+        el.innerHTML = `
+          <div class="slide-media">
+            <img src="${s.img}" alt="${s.title.replace(/"/g,'&quot;')}" ${i===0?'loading="eager" fetchpriority="high"':''} decoding="async">
+          </div>
+          <div class="container slide-content">
+            <div class="hero-text"><h1>${s.title}</h1><p>${s.text}</p></div>
+          </div>`;
+        hero.insertBefore(el, hero.firstChild);
+        const d = document.createElement('span'); d.className='hero-dot'; d.dataset.index=i; d.addEventListener('click',()=>activate(i)); dotsWrap.appendChild(d);
+      });
+    }
+    renderSlides();
+
+    let idx=0;
+    function activate(i){
+      idx = (i+slides.length)%slides.length;
+      const all = hero.querySelectorAll('.slide');
+      all.forEach((s,k)=> s.style.display = (k===idx)?'flex':'none');
+      dotsWrap.querySelectorAll('.hero-dot').forEach((d,k)=> d.classList.toggle('active', k===idx));
+    }
+    activate(0);
+    document.getElementById('prev').onclick=()=>activate(idx-1);
+    document.getElementById('next').onclick=()=>activate(idx+1);
+
+    // свайп
+    (function(){
+      let x0=null;
+      hero.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+      hero.addEventListener('touchend',e=>{
+        if(x0==null) return; let dx=e.changedTouches[0].clientX - x0;
+        if(Math.abs(dx)>40) { dx>0?activate(idx-1):activate(idx+1); }
+        x0=null;
+      });
+    })();
+
+    /* ===== Товары =====
+       Пагинация: по 6 товаров на страницу, «подарункові набори» внизу НЕ участвуют.
+    */
+    const allItems = [
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc11.jpg', title:'Очищувальне молочко з мікронізованим екстрактом вівса', price:'29,00 €'},
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc12.jpg', title:'Тонік «Морква, Женьшень і Центела азійська»', price:'29,00 €'},
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc13.jpg', title:'Очищувальний гель «Ромашка і Календула»', price:'29,00 €'},
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc14.jpg', title:'Зволожувальне очищувальне молочко', price:'29,00 €'},
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc15.jpg', title:'Зволожувальний тонік', price:'29,00 €'},
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc18.jpg', title:'Тонік для чутливої шкіри', price:'29,00 €'},
+      /* предпоследний gift — удалён */
+      /* последний gift — оставляем отдельно ниже */
+      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/DSC_5227.jpg', title:'Косметологічні подарункові набори', price:'—'}
+    ];
+
+    // Разделяем: товары в сетке и отдельный gift
+    const paginatedItems = allItems.slice(0, 6);
+    const giftItem = allItems[allItems.length - 1];
+
+    const grid = document.getElementById('products-grid');
+    const giftWrap = document.getElementById('gift-wrap');
+
+    const pageSize = 6;
+    let page = 0;
+    const totalPages = Math.max(1, Math.ceil(paginatedItems.length / pageSize));
+
+    function renderPage(){
+      const start = page * pageSize;
+      const end = start + pageSize;
+      const data = paginatedItems.slice(start, end);
+
+      grid.innerHTML = data.map(p=>`
+        <article class="product">
+          <div class="img-wrap"><img src="${p.img}" alt="${p.title}" loading="lazy" decoding="async"></div>
+          <div class="info">
+            <h3 class="title">${p.title}</h3>
+            ${p.price && p.price!=='—' ? `<div class="price">${p.price}</div>` : ``}
+            <div class="order-cta"><a class="button" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Замовити</a></div>
+          </div>
+        </article>`).join('');
+
+      // индикатор и кнопки
+      document.getElementById('prod-ind').textContent = `${page+1} / ${totalPages}`;
+      document.getElementById('prod-prev').disabled = page===0;
+      document.getElementById('prod-next').disabled = page>=totalPages-1;
+    }
+
+    // Пагинация клики
+    document.getElementById('prod-prev').addEventListener('click', ()=>{
+      if(page>0){ page--; renderPage(); }
+    });
+    document.getElementById('prod-next').addEventListener('click', ()=>{
+      if(page<totalPages-1){ page++; renderPage(); }
+    });
+
+    // Рендерим «подарункові набори» (отдельно, без кнопки «Запитати деталі»)
+    function renderGift(){
+      giftWrap.innerHTML = `
+        <article class="special-card">
+          <div class="special-media">
+            <img src="${giftItem.img}" alt="${giftItem.title}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="special-body">
+            <h3 class="special-title">${giftItem.title}</h3>
+            <p class="special-text">Готові рішення для свят та особливих моментів. Підберу набір під тип шкіри та бюджет.</p>
+            <div class="special-cta">
+              <a class="btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Замовити</a>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    renderPage();
+    renderGift();
+  </script>
+</body>
+</html>
