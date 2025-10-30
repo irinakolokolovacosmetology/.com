@@ -5,9 +5,20 @@
   <title>Irina Kolokolova Cosmetology — Професійний догляд</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="theme-color" content="#88bbb5" />
-  <meta name="description" content="Преміальний професійний догляд і косметика з Італії. Індивідуальні програми, естетичні процедури та домашні ритуали краси." />
+  <meta name="description" content="Преміальний професійний догляд і косметика з Іспанії. Індивідуальні програми, естетичні процедури та домашні ритуали краси." />
 
-  <link rel="icon" type="image/png" href="assets/54.png"/>
+  <!-- Иконка сайта и превью при шаринге -->
+  <link rel="icon" type="image/png" href="https://images.weserv.nl/?url=i.ibb.co/gbcK7Lm0/57.png"/>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Irina Kolokolova Cosmetology — Професійний догляд">
+  <meta property="og:description" content="Преміальний професійний догляд і косметика з Іспанії. Індивідуальні програми, естетичні процедури та домашні ритуали краси.">
+  <meta property="og:image" content="https://images.weserv.nl/?url=i.ibb.co/gbcK7Lm0/57.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Irina Kolokolova Cosmetology — Професійний догляд">
+  <meta name="twitter:description" content="Преміальний професійний догляд і косметика з Іспанії. Індивідуальні програми, естетичні процедури та домашні ритуали краси.">
+  <meta name="twitter:image" content="https://images.weserv.nl/?url=i.ibb.co/gbcK7Lm0/57.png">
 
   <style>
     :root{ --primary:#88bbb5; --primary-700:#6aa39d; --text:#000; --muted:#5f5f5f; --bg:#fff; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.07); }
@@ -28,10 +39,13 @@
     .btn-ghost{background:transparent;color:var(--primary)} .btn-ghost:hover{background:var(--primary);color:#fff}
     @media (max-width:390px){.btn{font-size:.7rem;height:36px;padding:0 10px}.btn .icon{width:16px;height:16px}}
 
-    .hero{position:relative}
-    .slide{position:relative;min-height:320px;display:flex;align-items:flex-end;overflow:hidden}
+    /* HERO */
+    .hero{position:relative;min-height:320px}
+    .slide{position:absolute;inset:0;display:flex;align-items:flex-end;overflow:hidden;opacity:0;transition:opacity .6s ease;pointer-events:none}
+    .slide.active{opacity:1;pointer-events:auto}
     .slide-media{position:absolute;inset:0;z-index:0}
-    .slide-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .slide-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .6s ease}
+    .slide.active .slide-media img{transform:scale(1.02)}
     .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.42));z-index:0}
     .slide-content{position:relative;z-index:1;width:100%}
     .hero-text{color:#fff;text-align:center;padding:22px 14px 20px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
@@ -42,6 +56,7 @@
     .hero-dots{position:absolute;left:0;right:0;bottom:8px;display:flex;gap:6px;justify-content:center}
     .hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)} .hero-dot.active{background:#fff}
 
+    /* PRODUCTS */
     .products{padding:16px 0 6px}
     .grid{display:grid;gap:18px;grid-template-columns:repeat(4,1fr)}
     @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -57,6 +72,7 @@
     .order-cta .button{width:100%;background:var(--primary);border:1px solid var(--primary);color:#fff;border-radius:999px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:700;letter-spacing:.04em}
     .order-cta .button:hover{background:var(--primary-700);border-color:var(--primary-700)}
 
+    /* Footer */
     .footer{background:var(--primary);color:#000;padding:18px 0 14px}
     .footer-inner{display:flex;flex-direction:column;align-items:center;gap:10px}
     .footer .socials{display:flex;gap:10px}
@@ -66,8 +82,8 @@
     .footer a{color:#000}
     .footer p{margin:4px 0 0}
 
-    /* Доп. стили: пагинация, разделители, спецкарточка, консультация */
-    .products-head{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:8px 0 6px}
+    /* Extra: pager, separator, special card, consult */
+    .products-head{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 6px}
     .pager{display:flex;gap:6px;align-items:center}
     .pager-btn{width:32px;height:32px;border-radius:999px;border:1px solid #ddd;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);cursor:pointer;transition:.15s}
     .pager-btn[disabled]{opacity:.5;cursor:not-allowed}
@@ -99,6 +115,7 @@
   <header class="header">
     <div class="container header-top">
       <div class="logo-wrap">
+        <!-- ЛОГО ВВЕРХУ ОСТАЛОСЬ БЕЗ ИЗМЕНЕНИЙ -->
         <img src="https://images.weserv.nl/?url=i.ibb.co/9X7PvSy/2025-10-30-160911.png" alt="Irina Kolokolova Cosmetology" loading="eager" decoding="async" fetchpriority="high">
       </div>
       <div class="header-actions">
@@ -120,6 +137,7 @@
     </div>
   </header>
 
+  <!-- HERO (с плавным фейдом) -->
   <section class="hero" id="hero">
     <div class="hero-nav">
       <button class="hero-btn" id="prev" aria-label="Попередній">
@@ -137,7 +155,7 @@
       <!-- Сетка товаров -->
       <div id="products-grid" class="grid"></div>
 
-      <!-- Пагинация: перенесена под сетку, над подарунковими наборами -->
+      <!-- Пагинация по центру -->
       <div class="products-head" id="pager-under-grid">
         <div class="pager">
           <button class="pager-btn" id="prod-prev" aria-label="Попередня сторінка">
@@ -150,7 +168,13 @@
         </div>
       </div>
 
-      <!-- Блок консультации -->
+      <!-- Подарункові набори (теперь выше консультации) -->
+      <div class="special-wrap" id="gift-wrap"></div>
+
+      <!-- Разделительная линия -->
+      <div class="section-sep"></div>
+
+      <!-- Блок консультации (ниже подарункових наборів) -->
       <div class="consult" style="margin-top:8px">
         <div class="consult-body">
           <h3>Персональна консультація</h3>
@@ -163,12 +187,6 @@
           <img src="assets/60.png" alt="" loading="lazy" decoding="async">
         </div>
       </div>
-
-      <!-- Разделительная линия между консультацією та подарунковими наборами -->
-      <div class="section-sep"></div>
-
-      <!-- Спец-блок: Подарункові набори (отдельно от пагинации) -->
-      <div class="special-wrap" id="gift-wrap"></div>
     </div>
   </section>
 
@@ -194,9 +212,9 @@
       if(!ok){ e.preventDefault(); e.stopPropagation(); }
     }, {capture:true});
 
-    // Слайды — ЛОКАЛЬНЫЕ файлы
+    /* ===== HERO SLIDES (плавный фейд) ===== */
     const slides = [
-      { img: 'assets/54.png', title: 'Преміальний професійний догляд і косметика з Італії', text: 'Дбайливо підбираю процедури та домашні засоби для сяйва шкіри у будь-якому віці.' },
+      { img: 'assets/54.png', title: 'Преміальний професійний догляд і косметика з Іспанії', text: 'Дбайливо підбираю процедури та домашні засоби для сяйва шкіри у будь-якому віці.' },
       { img: 'assets/55.png', title: 'Індивідуальні програми краси', text: 'Підлаштовую рекомендації під ваші цілі та ритм життя — комфортно й результативно.' },
       { img: 'assets/56.png', title: 'Естетичні процедури та домашній догляд', text: 'Поєднання кабінетних технік і щоденних ритуалів дарує стабільний тонус і сяйво.' },
       { img: 'assets/57.png', title: 'Косметологічні набори для дому', text: 'Готові рішення для різних типів шкіри — просто, економно та ефективно.' },
@@ -212,7 +230,7 @@
       dotsWrap.innerHTML='';
       slides.forEach((s, i)=>{
         const el = document.createElement('div');
-        el.className='slide';
+        el.className='slide' + (i===0?' active':'');
         el.innerHTML = `
           <div class="slide-media">
             <img src="${s.img}" alt="${s.title.replace(/"/g,'&quot;')}" ${i===0?'loading="eager" fetchpriority="high"':''} decoding="async">
@@ -220,20 +238,24 @@
           <div class="container slide-content">
             <div class="hero-text"><h1>${s.title}</h1><p>${s.text}</p></div>
           </div>`;
-        hero.insertBefore(el, hero.firstChild);
-        const d = document.createElement('span'); d.className='hero-dot'; d.dataset.index=i; d.addEventListener('click',()=>activate(i)); dotsWrap.appendChild(d);
+        hero.appendChild(el);
+
+        const d = document.createElement('span');
+        d.className='hero-dot' + (i===0?' active':'');
+        d.dataset.index=i; d.addEventListener('click',()=>activate(i));
+        dotsWrap.appendChild(d);
       });
     }
     renderSlides();
 
     let idx=0;
     function activate(i){
+      const slidesEls = hero.querySelectorAll('.slide');
+      const dots = dotsWrap.querySelectorAll('.hero-dot');
       idx = (i+slides.length)%slides.length;
-      const all = hero.querySelectorAll('.slide');
-      all.forEach((s,k)=> s.style.display = (k===idx)?'flex':'none');
-      dotsWrap.querySelectorAll('.hero-dot').forEach((d,k)=> d.classList.toggle('active', k===idx));
+      slidesEls.forEach((s,k)=> s.classList.toggle('active', k===idx));
+      dots.forEach((d,k)=> d.classList.toggle('active', k===idx));
     }
-    activate(0);
     document.getElementById('prev').onclick=()=>activate(idx-1);
     document.getElementById('next').onclick=()=>activate(idx+1);
 
@@ -248,9 +270,7 @@
       });
     })();
 
-    /* ===== Товары =====
-       Пагинация: по 6 товаров на страницу, «подарункові набори» внизу НЕ участвуют.
-    */
+    /* ===== Товары ===== */
     const allItems = [
       {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc11.jpg', title:'Очищувальне молочко з мікронізованим екстрактом вівса', price:'29,00 €'},
       {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc12.jpg', title:'Тонік «Морква, Женьшень і Центела азійська»', price:'29,00 €'},
@@ -258,12 +278,9 @@
       {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc14.jpg', title:'Зволожувальне очищувальне молочко', price:'29,00 €'},
       {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc15.jpg', title:'Зволожувальний тонік', price:'29,00 €'},
       {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc18.jpg', title:'Тонік для чутливої шкіри', price:'29,00 €'},
-      /* предпоследний gift — удалён */
-      /* последний gift — оставляем отдельно ниже */
       {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/DSC_5227.jpg', title:'Косметологічні подарункові набори', price:'—'}
     ];
 
-    // Разделяем: товары в сетке и отдельный gift
     const paginatedItems = allItems.slice(0, 6);
     const giftItem = allItems[allItems.length - 1];
 
@@ -289,13 +306,11 @@
           </div>
         </article>`).join('');
 
-      // индикатор и кнопки
       document.getElementById('prod-ind').textContent = `${page+1} / ${totalPages}`;
       document.getElementById('prod-prev').disabled = page===0;
       document.getElementById('prod-next').disabled = page>=totalPages-1;
     }
 
-    // Пагинация клики
     document.getElementById('prod-prev').addEventListener('click', ()=>{
       if(page>0){ page--; renderPage(); }
     });
@@ -303,7 +318,6 @@
       if(page<totalPages-1){ page++; renderPage(); }
     });
 
-    // Рендерим «подарункові набори» (отдельно, без кнопки «Запитати деталі»)
     function renderGift(){
       giftWrap.innerHTML = `
         <article class="special-card">
