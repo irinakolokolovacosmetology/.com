@@ -37,12 +37,9 @@
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:34px;padding:0 10px;border-radius:999px;border:1px solid var(--primary);background:var(--primary);color:#fff;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.72rem;box-shadow:var(--shadow);transition:transform .15s, background .15s, border-color .15s; -webkit-tap-highlight-color:transparent}
     .btn:hover{transform:translateY(-1px);background:var(--primary-700);border-color:var(--primary-700)}
     .btn .icon{width:16px;height:16px}
-
     /* Ghost стиль (как у Instagram) */
     .btn-ghost{background:#fff;color:var(--primary);border:1px solid var(--primary)}
     .btn-ghost:hover{background:var(--primary);color:#fff}
-
-    /* согласовать цвет иконок и текста */
     .btn .icon,.button .icon{color:inherit}
 
     @media (max-width:390px){
@@ -135,19 +132,23 @@
     .modal-close{width:32px;height:32px;border-radius:10px;border:1px solid #eee;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:0}
     .modal-body{display:grid;grid-template-columns:1.1fr .9fr;gap:0;min-height:360px}
     @media (max-width:840px){.modal-body{grid-template-columns:1fr;grid-auto-rows:minmax(260px,1fr)}}
-    .gallery{position:relative;background:#f7f7f7;display:grid;place-items:center;padding:12px}
+    .gallery{position:relative;background:#f7f7f7;display:grid;place-items:center;padding:12px;overflow:hidden}
     .g-img{max-width:100%;max-height:64vh;object-fit:contain}
-    .g-nav{position:absolute;left:0;right:0;top:50%;display:flex;justify-content:space-between;transform:translateY(-50%);padding:0 12px}
-    .g-btn{width:40px;height:40px;border-radius:999px;border:1px solid #ddd;background:rgba(255,255,255,.92);display:grid;place-items:center}
-    .g-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:6px;justify-content:center}
+    .g-nav{position:absolute;left:0;right:0;top:50%;display:flex;justify-content:space-between;transform:translateY(-50%);padding:0 12px;pointer-events:none}
+    .g-btn{width:40px;height:40px;border-radius:999px;border:1px solid #ddd;background:rgba(255,255,255,.92);display:grid;place-items:center;pointer-events:auto}
+    .g-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:6px;justify-content:center;pointer-events:none}
     .g-dot{width:6px;height:6px;border-radius:50%;background:#d0d0d0}
     .g-dot.active{background:#333}
     .desc{padding:16px;overflow:auto}
     .desc p{margin:0 0 10px}
     .modal-footer{border-top:1px solid #eee;padding:12px;display:flex;justify-content:flex-end}
 
-    /* режим: описание под фото (только для milk-oat) */
-    .modal.desc-below .modal-body{grid-template-columns:1fr}
+    /* опис под фото — отдельные ряды, чтобы ничего не наезжало */
+    .modal.desc-below .modal-body{
+      grid-template-columns:1fr;
+      grid-template-rows:auto 1fr; /* 1) галерея 2) опис */
+    }
+    .modal.desc-below .gallery{max-height:48vh} /* ограничили высоту фото */
     .modal.desc-below .desc{max-height:38vh;overflow:auto}
 
     body.modal-open{overflow:hidden}
@@ -160,7 +161,6 @@
         <img src="https://images.weserv.nl/?url=i.ibb.co/9X7PvSy/2025-10-30-160911.png" alt="Irina Kolokolova Cosmetology" loading="eager" decoding="async" fetchpriority="high">
       </div>
       <div class="header-actions">
-        <!-- TikTok в стиле Instagram (ghost) -->
         <a class="btn btn-ghost" href="https://www.tiktok.com/@bezfamilnaya?_r=1&_t=ZM-910FgMQsaUq" target="_blank" rel="noopener" aria-label="TikTok">
           <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M14 3c.3 2.7 2.1 4.9 4.6 5.5v2.4c-1.5-.1-2.9-.6-4.1-1.4v5.9a6 6 0 1 1-6-6c.5 0 1 .1 1.4.2v2.6c-.4-.2-.9-.3-1.4-.3a3.4 3.4 0 1 0 3.4 3.4V3h2.1Z" fill="currentColor"/>
@@ -333,13 +333,13 @@
       });
     })();
 
-    /* ===== PRODUCTS (2 колонки, 8/стр, 3 страницы) ===== */
+    /* ===== PRODUCTS (2 колонки, 8/стр, автоскролл вверх при пагинации) ===== */
     const products = [
       {
         slug:'milk-oat',
         title:'Очищувальне молочко з мікронізованим екстрактом вівса',
         price:'29,00 €',
-        images:['1.jpg'],        // положите 1@2x.jpg для Retina (необязательно)
+        images:['1.jpg'],
         desc: `
           <p><strong>Ніжне щоденне очищення</strong> без відчуття стягнення ✨ Підходить для сухої, чутливої та нормальної шкіри.</p>
           <ul>
@@ -381,7 +381,7 @@
     const TOTAL_PAGES = Math.max(1, Math.ceil(products.length / PER_PAGE));
     const grid = document.getElementById('products-grid');
 
-    // формируем srcset для Retina (ищем файл с суффиксом @2x)
+    // Retina srcset helper
     function withSrcset(src){
       const m = src.match(/^(.*)(\.[a-zA-Z0-9]+)$/);
       const retina = m ? `${m[1]}@2x${m[2]}` : null;
@@ -420,9 +420,7 @@
       document.getElementById('prod-ind').textContent = `${page+1} / ${TOTAL_PAGES}`;
       document.getElementById('prod-prev').disabled = page===0;
       document.getElementById('prod-next').disabled = page>=TOTAL_PAGES-1;
-
-      // после смены страницы — прокрутка к началу списка
-      grid.scrollIntoView({behavior:'smooth', block:'start'});
+      grid.scrollIntoView({behavior:'smooth', block:'start'}); // автопрокрутка вверх
     }
     document.getElementById('prod-prev').addEventListener('click', ()=>{ if(page>0){ page--; renderPage(); } });
     document.getElementById('prod-next').addEventListener('click', ()=>{ if(page<TOTAL_PAGES-1){ page++; renderPage(); } });
