@@ -33,7 +33,7 @@
     .logo-wrap{display:flex;justify-content:center}
     .logo-wrap img{height:56px;width:auto}
 
-    /* уменьшил и добавил внутренние поля, чтобы кнопки не липли к краям */
+    /* actions */
     .header-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 10px;padding:0 10px}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:34px;padding:0 10px;border-radius:999px;border:1px solid var(--primary);background:var(--primary);color:#fff;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.72rem;box-shadow:var(--shadow);transition:.15s}
     .btn:hover{transform:translateY(-1px);background:var(--primary-700);border-color:var(--primary-700)}
@@ -58,7 +58,6 @@
     .hero-text h1{margin:0 0 8px;font-size:clamp(22px,5vw,30px);font-weight:800}
     .hero-text p{margin:0 auto;max-width:820px;color:#f5f5f5}
 
-    /* стрелки вернул и закрепил поверх */
     .hero-nav{position:absolute;top:50%;left:0;right:0;display:flex;justify-content:space-between;transform:translateY(-50%);padding:0 6px;pointer-events:none;z-index:3}
     .hero-btn{pointer-events:auto;width:40px;height:40px;border-radius:999px;border:1px solid #fff;background:rgba(255,255,255,.2);backdrop-filter:blur(2px);display:grid;place-items:center;color:#fff}
 
@@ -67,19 +66,18 @@
 
     /* PRODUCTS */
     .products{padding:16px 0 6px}
-    .grid{display:grid;gap:18px;grid-template-columns:repeat(4,1fr)}
-    @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:420px){.grid{grid-template-columns:1fr}}
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(2,1fr)}
+    /* всегда 2 колонки */
     .product{border:1px solid #eee;border-radius:18px;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
-    .product .img-wrap{aspect-ratio:5/3.7;background:#f6f6f6}
-    .product .img-wrap img{width:100%;height:100%;object-fit:cover}
+    /* Без изображений в карточке */
     .product .info{padding:14px 14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
     .product .title{margin:0;color:#000;font-size:1.02rem;line-height:1.25;text-align:center;min-height:2.6em}
     .product .price{color:#000;font-weight:700;text-align:center}
-    .order-cta{margin-top:auto}
+    .order-cta{display:grid;gap:8px;margin-top:auto}
     .order-cta .button{width:100%;background:var(--primary);border:1px solid var(--primary);color:#fff;border-radius:999px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:700;letter-spacing:.04em}
     .order-cta .button:hover{background:var(--primary-700);border-color:var(--primary-700)}
+    .order-cta .btn-more{width:100%;background:#fff;border:1px solid var(--primary);color:var(--primary)}
+    .order-cta .btn-more:hover{background:var(--primary);color:#fff}
 
     /* Footer */
     .footer{background:var(--primary);color:#000;padding:18px 0 14px}
@@ -91,7 +89,7 @@
     .footer a{color:#000}
     .footer p{margin:4px 0 0}
 
-    /* Extra: pager, separator, special card, consult */
+    /* pager */
     .products-head{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 6px}
     .pager{display:flex;gap:6px;align-items:center}
     .pager-btn{width:32px;height:32px;border-radius:999px;border:1px solid #ddd;background:#fff;display:grid;place-items:center;box-shadow:var(--shadow);cursor:pointer;transition:.15s}
@@ -118,21 +116,45 @@
     .consult p{margin:0}
     .consult .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
     .consult .media{background:#f6f6f6}
+
+    /* MODAL */
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.48);opacity:0;pointer-events:none;transition:.2s;z-index:70}
+    .backdrop.active{opacity:1;pointer-events:auto}
+    .modal{position:fixed;inset:0;display:grid;place-items:center;padding:24px;z-index:80;pointer-events:none}
+    .modal-card{width:min(940px,96vw);max-height:86vh;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden;transform:translateY(12px);opacity:.98;transition:.25s;display:grid;grid-template-rows:auto 1fr auto;pointer-events:auto}
+    .modal.active .modal-card{transform:translateY(0);opacity:1}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #eee}
+    .modal-title{margin:0;color:#000;font-size:1rem;font-weight:800}
+    .modal-close{width:32px;height:32px;border-radius:9px;border:1px solid #eee;background:#fff;display:grid;place-items:center;cursor:pointer}
+    .modal-body{display:grid;grid-template-columns:1.1fr .9fr;gap:0;min-height:360px}
+    @media (max-width:840px){.modal-body{grid-template-columns:1fr;grid-auto-rows:minmax(240px,1fr)}}
+    .gallery{position:relative;background:#f7f7f7;display:grid;place-items:center}
+    .g-img{max-width:100%;max-height:64vh;object-fit:contain}
+    .g-nav{position:absolute;top:50%;left:0;right:0;display:flex;justify-content:space-between;transform:translateY(-50%);padding:0 8px}
+    .g-btn{width:40px;height:40px;border-radius:999px;border:1px solid #ddd;background:rgba(255,255,255,.88);display:grid;place-items:center}
+    .g-dots{position:absolute;left:0;right:0;bottom:8px;display:flex;gap:6px;justify-content:center}
+    .g-dot{width:6px;height:6px;border-radius:50%;background:#d0d0d0}
+    .g-dot.active{background:#333}
+    .desc{padding:16px;overflow:auto}
+    .desc p{margin:0 0 10px}
+    .modal-footer{border-top:1px solid #eee;padding:12px;display:flex;justify-content:flex-end}
+    body.modal-open{overflow:hidden}
   </style>
 </head>
 <body>
   <header class="header">
     <div class="container header-top">
       <div class="logo-wrap">
-        <!-- ЛОГО ВВЕРХУ ОСТАЛОСЬ БЕЗ ИЗМЕНЕНИЙ -->
         <img src="https://images.weserv.nl/?url=i.ibb.co/9X7PvSy/2025-10-30-160911.png" alt="Irina Kolokolova Cosmetology" loading="eager" decoding="async" fetchpriority="high">
       </div>
       <div class="header-actions">
-        <a class="btn" href="tel:+380960120122" aria-label="Подзвонити">
+        <!-- КНОПКА TIKTOK вместо телефона -->
+        <a class="btn" href="https://www.tiktok.com/@bezfamilnaya?_r=1&_t=ZM-910FgMQsaUq" target="_blank" rel="noopener" aria-label="TikTok">
+          <!-- иконка TikTok стилизована под кнопку -->
           <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.78.54 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.06a2 2 0 0 1 2.11-.45c.85.24 1.73.42 2.63.54A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 3c.3 2.7 2.1 4.9 4.6 5.5v2.4c-1.5-.1-2.9-.6-4.1-1.4v5.9a6 6 0 1 1-6-6c.5 0 1 .1 1.4.2v2.6c-.4-.2-.9-.3-1.4-.3a3.4 3.4 0 1 0 3.4 3.4V3h2.1Z" fill="currentColor"/>
           </svg>
-          +380&nbsp;96&nbsp;012&nbsp;01&nbsp;22
+          TikTok
         </a>
         <a class="btn btn-ghost" href="https://www.instagram.com/irina.kolokolova_cosmetology/" target="_blank" rel="noopener" aria-label="Instagram">
           <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -146,7 +168,7 @@
     </div>
   </header>
 
-  <!-- HERO (стрелки + плавный фейд) -->
+  <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-nav">
       <button class="hero-btn" id="prev" aria-label="Попередній">
@@ -161,10 +183,10 @@
 
   <section class="products">
     <div class="container">
-      <!-- Сетка товаров -->
+      <!-- Сетка товаров 2 колонки -->
       <div id="products-grid" class="grid"></div>
 
-      <!-- Пагинация по центру -->
+      <!-- Пагинація по центру -->
       <div class="products-head" id="pager-under-grid">
         <div class="pager">
           <button class="pager-btn" id="prod-prev" aria-label="Попередня сторінка">
@@ -180,10 +202,9 @@
       <!-- Подарункові набори -->
       <div class="special-wrap" id="gift-wrap"></div>
 
-      <!-- Разделительная линия -->
       <div class="section-sep"></div>
 
-      <!-- Блок консультации -->
+      <!-- Блок консультації -->
       <div class="consult" style="margin-top:8px">
         <div class="consult-body">
           <h3>Персональна консультація</h3>
@@ -202,26 +223,55 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="socials">
-        <a class="icon-btn" href="tel:+380960120122" aria-label="Подзвонити"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.78.54 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.06a2 2 0 0 1 2.11-.45c.85.24 1.73.42 2.63.54A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
         <a class="icon-btn" href="https://www.instagram.com/irina.kolokolova_cosmetology/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
+        <a class="icon-btn" href="https://www.tiktok.com/@bezfamilnaya?_r=1&_t=ZM-910FgMQsaUq" target="_blank" rel="noopener" aria-label="TikTok"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M14 3c.3 2.7 2.1 4.9 4.6 5.5v2.4c-1.5-.1-2.9-.6-4.1-1.4v5.9a6 6 0 1 1-6-6c.5 0 1 .1 1.4.2v2.6c-.4-.2-.9-.3-1.4-.3a3.4 3.4 0 1 0 3.4 3.4V3h2.1Z" fill="currentColor"/></svg></a>
         <a class="icon-btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg></a>
       </div>
       <p>© 2025 Irina Kolokolova Cosmetology</p>
     </div>
   </footer>
 
+  <!-- Backdrop + Modal -->
+  <div class="backdrop" id="backdrop"></div>
+  <div class="modal" id="product-modal" aria-hidden="true" role="dialog" aria-modal="true" style="display:none">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="m-title"></h3>
+        <button class="modal-close" id="m-close" aria-label="Закрити">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#333" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="gallery">
+          <img id="m-img" class="g-img" alt="" />
+          <div class="g-nav" id="g-nav" style="display:none">
+            <button class="g-btn" id="g-prev" aria-label="Попереднє фото"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="g-btn" id="g-next" aria-label="Наступне фото"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="g-dots" id="g-dots"></div>
+        </div>
+        <div class="desc">
+          <div id="m-desc"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Замовити</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Ограничиваем внешние переходы
     document.addEventListener('click', (e)=>{
       const a=e.target.closest('a'); if(!a) return;
       const href=(a.getAttribute('href')||'').trim();
-      const ok = href.startsWith('tel:') ||
-        href.startsWith('https://www.instagram.com/irina.kolokolova_cosmetology/') ||
-        href.startsWith('https://t.me/cosmetologg_iryna') || href==='#' || href==='';
+      const ok = href.startsWith('https://www.instagram.com/irina.kolokolova_cosmetology/') ||
+        href.startsWith('https://t.me/cosmetologg_iryna') ||
+        href.startsWith('https://www.tiktok.com/@bezfamilnaya') || href==='#' || href==='';
       if(!ok){ e.preventDefault(); e.stopPropagation(); }
     }, {capture:true});
 
-    /* ===== HERO SLIDES (плавный фейд + стрелки) ===== */
+    /* ===== HERO SLIDES ===== */
     const slides = [
       { img: 'assets/54.png', title: 'Преміальний професійний догляд і косметика з Іспанії', text: 'Дбайливо підбираю процедури та домашні засоби для сяйва шкіри у будь-якому віці.' },
       { img: 'assets/55.png', title: 'Індивідуальні програми краси', text: 'Підлаштовую рекомендації під ваші цілі та ритм життя — комфортно й результативно.' },
@@ -279,62 +329,84 @@
       });
     })();
 
-    /* ===== Товары ===== */
-    const allItems = [
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc11.jpg', title:'Очищувальне молочко з мікронізованим екстрактом вівса', price:'29,00 €'},
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc12.jpg', title:'Тонік «Морква, Женьшень і Центела азійська»', price:'29,00 €'},
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc13.jpg', title:'Очищувальний гель «Ромашка і Календула»', price:'29,00 €'},
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc14.jpg', title:'Зволожувальне очищувальне молочко', price:'29,00 €'},
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc15.jpg', title:'Зволожувальний тонік', price:'29,00 €'},
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/cc18.jpg', title:'Тонік для чутливої шкіри', price:'29,00 €'},
-      {img:'https://vivabeauty.ee/wp-content/uploads/2022/09/DSC_5227.jpg', title:'Косметологічні подарункові набори', price:'—'}
+    /* ===== Товари (2 колонки, 8 на сторінку, 3 сторінки) ===== */
+    // Проста схема даних для швидкого додавання товарів.
+    // images: [] зараз порожні (без картинок). Коли додасте, вказуйте назви файлів з папки assets/products/<slug>/
+    const products = [
+      // Сторінка 1 (8)
+      {slug:'milk-oat', title:'Очищувальне молочко з мікронізованим екстрактом вівса', price:'29,00 €', images:[], desc:'Ніжно очищує, зберігаючи ліпідний бар’єр шкіри.'},
+      {slug:'toner-carrot', title:'Тонік «Морква, Женьшень і Центела азійська»', price:'29,00 €', images:[], desc:'Повертає сяйво, тонізує та зволожує.'},
+      {slug:'gel-chamomile', title:'Очищувальний гель «Ромашка і Календула»', price:'29,00 €', images:[], desc:'Делікатне очищення для щоденного використання.'},
+      {slug:'milk-hydra', title:'Зволожувальне очищувальне молочко', price:'29,00 €', images:[], desc:'М’яка кремова текстура для комфортного вмивання.'},
+      {slug:'toner-hydra', title:'Зволожувальний тонік', price:'29,00 €', images:[], desc:'Баланс pH і базове зволоження після очищення.'},
+      {slug:'toner-sensitive', title:'Тонік для чутливої шкіри', price:'29,00 €', images:[], desc:'Заспокоює, знімає почервоніння та дискомфорт.'},
+      {slug:'serum-vitc', title:'Сироватка з вітаміном C', price:'39,00 €', images:[], desc:'Антиоксидантний захист і сяйво кожного дня.'},
+      {slug:'cream-nutri', title:'Живильний крем з керамідами', price:'42,00 €', images:[], desc:'Відновлення бар’єру та щільності шкіри.'},
+      // Сторінка 2 (8)
+      {slug:'spf50', title:'Сонцезахисний крем SPF 50', price:'35,00 €', images:[], desc:'Легка формула широкого спектра.'},
+      {slug:'eye-cream', title:'Крем для зони навколо очей', price:'31,00 €', images:[], desc:'Зменшує набряклість та темні кола.'},
+      {slug:'mask-enz', title:'Ензимна маска для сяйва', price:'33,00 €', images:[], desc:'Делікатне оновлення тону та текстури.'},
+      {slug:'oil-rosehip', title:'Олія шипшини', price:'27,00 €', images:[], desc:'Підтримка регенерації та еластичності.'},
+      {slug:'cleanser-foam', title:'Пінка для вмивання', price:'24,00 €', images:[], desc:'Свіжість і чистота без стягнення.'},
+      {slug:'balm-lip', title:'Бальзам для губ', price:'12,00 €', images:[], desc:'Живлення та гладкість щодня.'},
+      {slug:'toner-balance', title:'Балансуючий тонік', price:'29,00 €', images:[], desc:'Контроль себуму та комфорт.'},
+      {slug:'essence-hyal', title:'Есенція з гіалуроновою кислотою', price:'36,00 €', images:[], desc:'Глибоке зволоження в один дотик.'},
+      // Сторінка 3 (8)
+      {slug:'peel-mandelic', title:'Манделевий пілінг домашній', price:'34,00 €', images:[], desc:'Рівний тон без подразнення.'},
+      {slug:'mask-clay', title:'Очищувальна глиняна маска', price:'23,00 €', images:[], desc:'Матування та звуження пор.'},
+      {slug:'serum-retinol', title:'Сироватка з ретинолом', price:'41,00 €', images:[], desc:'Рівна текстура та еластичність.'},
+      {slug:'cream-calming', title:'Крем-антистрес', price:'37,00 €', images:[], desc:'Заспокоює подразнення та чутливість.'},
+      {slug:'mist-rose', title:'Рожевий міст', price:'18,00 €', images:[], desc:'Миттєве зволоження протягом дня.'},
+      {slug:'booster-niac', title:'Ніацинамід-бустер', price:'32,00 €', images:[], desc:'Рівний тон і менше недосконалостей.'},
+      {slug:'cleanser-cream', title:'Кремове очищення', price:'26,00 €', images:[], desc:'Комфортне умивання для сухої шкіри.'},
+      {slug:'gift-kits', title:'Косметологічні подарункові набори', price:'—', images:[], desc:'Готові рішення для свят та особливих моментів.'}
     ];
 
-    const paginatedItems = allItems.slice(0, 6);
-    const giftItem = allItems[allItems.length - 1];
+    const PER_PAGE = 8;
+    const TOTAL_PAGES = Math.max(1, Math.ceil(products.length / PER_PAGE)); // повинно вийти 3
 
     const grid = document.getElementById('products-grid');
-    const giftWrap = document.getElementById('gift-wrap');
 
-    const pageSize = 6;
-    let page = 0;
-    const totalPages = Math.max(1, Math.ceil(paginatedItems.length / pageSize));
-
-    function renderPage(){
-      const start = page * pageSize;
-      const end = start + pageSize;
-      const data = paginatedItems.slice(start, end);
-
-      grid.innerHTML = data.map(p=>`
-        <article class="product">
-          <div class="img-wrap"><img src="${p.img}" alt="${p.title}" loading="lazy" decoding="async"></div>
-          <div class="info">
-            <h3 class="title">${p.title}</h3>
-            ${p.price && p.price!=='—' ? `<div class="price">${p.price}</div>` : ``}
-            <div class="order-cta"><a class="button" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Замовити</a></div>
+    function productCard(p, i){
+      return `
+      <article class="product">
+        <div class="info">
+          <h3 class="title">${p.title}</h3>
+          ${p.price && p.price!=='—' ? `<div class="price">${p.price}</div>` : ``}
+          <div class="order-cta">
+            <a class="button" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Замовити</a>
+            <button class="button btn-more" data-slug="${p.slug}">Детальніше</button>
           </div>
-        </article>`).join('');
-
-      document.getElementById('prod-ind').textContent = `${page+1} / ${totalPages}`;
-      document.getElementById('prod-prev').disabled = page===0;
-      document.getElementById('prod-next').disabled = page>=totalPages-1;
+        </div>
+      </article>`;
     }
 
-    document.getElementById('prod-prev').addEventListener('click', ()=>{
-      if(page>0){ page--; renderPage(); }
-    });
-    document.getElementById('prod-next').addEventListener('click', ()=>{
-      if(page<totalPages-1){ page++; renderPage(); }
-    });
+    let page = 0;
+    function renderPage(){
+      const start = page * PER_PAGE;
+      const end = start + PER_PAGE;
+      const data = products.slice(start, end);
+      grid.innerHTML = data.map(productCard).join('');
+      document.getElementById('prod-ind').textContent = `${page+1} / ${TOTAL_PAGES}`;
+      document.getElementById('prod-prev').disabled = page===0;
+      document.getElementById('prod-next').disabled = page>=TOTAL_PAGES-1;
+    }
 
+    document.getElementById('prod-prev').addEventListener('click', ()=>{ if(page>0){ page--; renderPage(); } });
+    document.getElementById('prod-next').addEventListener('click', ()=>{ if(page<TOTAL_PAGES-1){ page++; renderPage(); } });
+
+    // Подарункові набори (позаблоково)
+    const giftWrap = document.getElementById('gift-wrap');
     function renderGift(){
+      const gift = products.find(p=>p.slug==='gift-kits');
+      if(!gift) { giftWrap.innerHTML=''; return; }
       giftWrap.innerHTML = `
         <article class="special-card">
           <div class="special-media">
-            <img src="${giftItem.img}" alt="${giftItem.title}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
+            <div style="width:100%;height:100%;display:grid;place-items:center;color:#999">Фото буде додано</div>
           </div>
           <div class="special-body">
-            <h3 class="special-title">${giftItem.title}</h3>
+            <h3 class="special-title">${gift.title}</h3>
             <p class="special-text">Готові рішення для свят та особливих моментів. Підберу набір під тип шкіри та бюджет.</p>
             <div class="special-cta">
               <a class="btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener">Замовити</a>
@@ -343,8 +415,79 @@
         </article>`;
     }
 
+    /* ===== MODAL / GALLERY ===== */
+    const backdrop = document.getElementById('backdrop');
+    const modal = document.getElementById('product-modal');
+    const mTitle = document.getElementById('m-title');
+    const mDesc = document.getElementById('m-desc');
+    const mImg = document.getElementById('m-img');
+    const gNav = document.getElementById('g-nav');
+    const gPrev = document.getElementById('g-prev');
+    const gNext = document.getElementById('g-next');
+    const gDots = document.getElementById('g-dots');
+
+    let gallery = {list:[], idx:0};
+
+    function openModal(prod){
+      mTitle.textContent = prod.title;
+      mDesc.innerHTML = `<p>${prod.desc||''}</p>${prod.price && prod.price!=='—' ? `<p><strong>Ціна:</strong> ${prod.price}</p>`:''}`;
+
+      // Підтримка кількох фото з папки assets/products/<slug>/
+      // prod.images = ["1.jpg","2.jpg"] і т.д. Якщо масив порожній — фото немає.
+      gallery.list = (prod.images||[]).map(fn => `assets/products/${prod.slug}/${fn}`);
+      gallery.idx = 0;
+
+      updateGalleryUI();
+
+      backdrop.classList.add('active');
+      modal.style.display='grid';
+      modal.classList.add('active');
+      document.body.classList.add('modal-open');
+      modal.setAttribute('aria-hidden','false');
+    }
+
+    function closeModal(){
+      modal.classList.remove('active');
+      backdrop.classList.remove('active');
+      setTimeout(()=>{ modal.style.display='none'; document.body.classList.remove('modal-open'); modal.setAttribute('aria-hidden','true'); }, 180);
+    }
+
+    function updateGalleryUI(){
+      if(gallery.list.length===0){
+        mImg.style.display='none';
+        gNav.style.display='none';
+        gDots.innerHTML='';
+      } else {
+        mImg.style.display='block';
+        mImg.src = gallery.list[gallery.idx];
+        gNav.style.display = gallery.list.length>1 ? 'flex':'none';
+        gDots.innerHTML = gallery.list.map((_,i)=>`<span class="g-dot ${i===gallery.idx?'active':''}"></span>`).join('');
+      }
+    }
+
+    gPrev.addEventListener('click',()=>{ if(!gallery.list.length) return; gallery.idx = (gallery.idx-1+gallery.list.length)%gallery.list.length; updateGalleryUI(); });
+    gNext.addEventListener('click',()=>{ if(!gallery.list.length) return; gallery.idx = (gallery.idx+1)%gallery.list.length; updateGalleryUI(); });
+
+    // Делегування на кнопку "Детальніше"
+    grid.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.btn-more'); if(!btn) return;
+      const slug = btn.dataset.slug;
+      const prod = products.find(p=>p.slug===slug);
+      if(prod) openModal(prod);
+    });
+
+    document.getElementById('m-close').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    // ESC закриває
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.style.display!=='none') closeModal(); });
+
+    // Колесо не прокручує сайт під модалкою (body.modal-open)
+
+    // Ініціалізація
     renderPage();
     renderGift();
+
   </script>
 </body>
 </html>
