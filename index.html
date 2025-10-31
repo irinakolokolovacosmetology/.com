@@ -142,6 +142,15 @@
     .modal-footer{border-top:1px solid #eee;padding:12px;display:flex;justify-content:flex-end}
 
     body.modal-open{overflow:hidden}
+      /* Fix anchor default color overriding buttons */
+    a{color:var(--primary);text-decoration:none}
+    a:hover{color:var(--primary-700)}
+    /* force white text on solid buttons in all states */
+    .btn, .button { color:#fff; }
+    .btn:link, .btn:visited, .btn:active, .btn:focus,
+    .button:link, .button:visited, .button:active, .button:focus { color:#fff; }
+    /* keep icon same color as label */
+    .btn .icon, .button .icon { color:inherit; }
   </style>
 </head>
 <body>
