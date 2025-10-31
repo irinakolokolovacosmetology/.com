@@ -127,9 +127,15 @@
     .modal-body{display:block;overflow:auto;max-height:calc(86vh - 56px - 56px);}
     /* Фото прокручивается вместе с описанием, тонкая рамка */
     .gallery{background:#fff;padding:12px 12px 0;border-bottom:1px solid #eee}
-    .g-frame{border:1px solid #e6e6e6;border-radius:12px;overflow:hidden;background:#f7f7f7}
+    .g-frame{border:1px solid #e6e6e6;border-radius:12px;overflow:hidden;background:#f7f7f7;position:relative}
     .g-img{width:100%;height:auto;object-fit:contain}
-    .g-dots{display:flex;gap:6px;justify-content:center;padding:8px 0 0}
+    /* Навигация в модалке */
+    .g-nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:999px;border:1px solid #ddd;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer}
+    .g-nav-btn[hidden]{display:none}
+    #g-prev{left:8px}
+    #g-next{right:8px}
+    /* Точки поверх изображения снизу */
+    .g-dots{position:absolute;left:0;right:0;bottom:6px;display:flex;gap:6px;justify-content:center;padding:0;pointer-events:auto}
     .g-dot{width:6px;height:6px;border-radius:50%;background:#d0d0d0}
     .g-dot.active{background:#333}
     .desc{padding:16px}
@@ -215,7 +221,7 @@
       <div class="socials">
         <a class="icon-btn" href="https://www.instagram.com/irina.kolokolova_cosmetology/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
         <a class="icon-btn" href="https://www.tiktok.com/@bezfamilnaya?_r=1&_t=ZM-910FgMQsaUq" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M14 3c.3 2.7 2.1 4.9 4.6 5.5v2.4c-1.5-.1-2.9-.6-4.1-1.4v5.9a6 6 0 1 1-6-6c.5 0 1 .1 1.4.2v2.6c-.4-.2-.9-.3-1.4-.3a3.4 3.4 0 1 0 3.4 3.4V3h2.1Z" fill="currentColor"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M14 3c.3 2.7 2.1 4.9 4.6 5.5v2.4c-1.5-.1-2.9-.6-4.1-1.4v5.9a6 6 0 1 1-6-6c.5 0 1 .1 1.4 .2в2.6c-.4-.2-.9-.3-1.4-.3a3.4 3.4 0 1 0 3.4 3.4V3h2.1Z" fill="currentColor"/></svg>
         </a>
         <a class="icon-btn" href="https://t.me/cosmetologg_iryna" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/></svg></a>
       </div>
@@ -238,8 +244,16 @@
         <div class="gallery">
           <div class="g-frame">
             <img id="m-img" class="g-img" alt="" />
+            <!-- стрелки внутри изображения -->
+            <button class="g-nav-btn" id="g-prev" aria-label="Попереднє фото" hidden>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="g-nav-btn" id="g-next" aria-label="Наступне фото" hidden>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <!-- точки поверх картинки снизу -->
+            <div class="g-dots" id="g-dots"></div>
           </div>
-          <div class="g-dots" id="g-dots"></div>
         </div>
         <div class="desc">
           <div id="m-desc"></div>
@@ -348,7 +362,7 @@
   slug: 'toner-carrot',
   title: 'FR-HAUT R-GEN Treatment',
   price: '29,00 €',
-  images: ['1.jpg','2.jpg','3.jpg'],   // файлы из assets/products/toner-carrot/
+  images: ['1.jpg','2.jpg','3.jpg'],
   desc: `
     <p><strong>Відновлює сяйво та тонус</strong> без липкості 🌿 Підійде для тьмяної, стресованої шкіри.</p>
     <ul>
@@ -480,6 +494,8 @@
     const mDesc = document.getElementById('m-desc');
     const mImg = document.getElementById('m-img');
     const gDots = document.getElementById('g-dots');
+    const gPrev = document.getElementById('g-prev');
+    const gNext = document.getElementById('g-next');
 
     let gallery = {list:[], idx:0};
     let scrollY = 0;
@@ -524,18 +540,51 @@
       setTimeout(()=>{ modal.style.display='none'; unlockScroll(); modal.setAttribute('aria-hidden','true'); }, 220);
     }
 
+    function setGalleryIndex(newIdx){
+      if(gallery.list.length===0) return;
+      const len = gallery.list.length;
+      gallery.idx = (newIdx + len) % len;
+      updateGalleryUI();
+    }
+
     function updateGalleryUI(){
       if(gallery.list.length===0){
         mImg.style.display='none';
         gDots.innerHTML='';
+        gPrev.hidden = gNext.hidden = true;
       } else {
         mImg.style.display='block';
         const src = gallery.list[gallery.idx];
         mImg.src = src;
         mImg.srcset = withSrcset(src);
-        gDots.innerHTML = gallery.list.length>1 ? gallery.list.map((_,i)=>`<span class="g-dot ${i===gallery.idx?'active':''}"></span>`).join('') : '';
+        const many = gallery.list.length>1;
+        gPrev.hidden = gNext.hidden = !many;
+        gDots.innerHTML = many ? gallery.list.map((_,i)=>`<span class="g-dot ${i===gallery.idx?'active':''}" data-i="${i}"></span>`).join('') : '';
       }
     }
+
+    // клики по стрелкам
+    gPrev.addEventListener('click', ()=> setGalleryIndex(gallery.idx-1));
+    gNext.addEventListener('click', ()=> setGalleryIndex(gallery.idx+1));
+
+    // клики по точкам
+    gDots.addEventListener('click', (e)=>{
+      const dot = e.target.closest('.g-dot'); if(!dot) return;
+      const i = Number(dot.dataset.i);
+      if(!Number.isNaN(i)) setGalleryIndex(i);
+    });
+
+    // свайп по изображению
+    (function(){
+      let x0=null;
+      const el = document.querySelector('.g-frame');
+      el.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+      el.addEventListener('touchend',e=>{
+        if(x0==null) return; let dx=e.changedTouches[0].clientX - x0;
+        if(Math.abs(dx)>40) { dx>0?setGalleryIndex(gallery.idx-1):setGalleryIndex(gallery.idx+1); }
+        x0=null;
+      },{passive:true});
+    })();
 
     document.getElementById('products-grid').addEventListener('click', (e)=>{
       const btn = e.target.closest('.btn-more'); if(!btn) return;
@@ -546,7 +595,11 @@
 
     document.getElementById('m-close').addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.style.display!=='none') closeModal(); });
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape' && modal.style.display!=='none') closeModal();
+      if(e.key==='ArrowLeft' && modal.style.display!=='none') setGalleryIndex(gallery.idx-1);
+      if(e.key==='ArrowRight' && modal.style.display!=='none') setGalleryIndex(gallery.idx+1);
+    });
 
     // INIT — первый рендер БЕЗ автопрокрутки к товарам
     renderPage(false);
